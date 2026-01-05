@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PopcornFlix - Discover Amazing Movies</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+    
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-logo">
+                <div class="logo-icon">🍿</div>
+                <span class="logo-text">PopcornFlix</span>
+            </div>
+            
+            <div class="navbar-search">
+                <div class="search-box">
+                    <input type="text" 
+                           id="searchInput" 
+                           class="search-input" 
+                           placeholder="Search for movies...">
+                    <button id="searchBtn" class="search-icon-btn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+                
+                <select id="genreSelect" class="genre-select-small">
+                    <option value="">All Movies</option>
+                    <option value="28">Action</option>
+                    <option value="12">Adventure</option>
+                    <option value="16">Animation</option>
+                    <option value="35">Comedy</option>
+                    <option value="80">Crime</option>
+                    <option value="99">Documentary</option>
+                    <option value="18">Drama</option>
+                    <option value="10751">Family</option>
+                    <option value="14">Fantasy</option>
+                    <option value="36">History</option>
+                    <option value="27">Horror</option>
+                    <option value="10402">Music</option>
+                    <option value="9648">Mystery</option>
+                    <option value="10749">Romance</option>
+                    <option value="878">Science Fiction</option>
+                    <option value="10770">TV Movie</option>
+                    <option value="53">Thriller</option>
+                    <option value="10752">War</option>
+                    <option value="37">Western</option>
+                </select>
+            </div>
+            
+            <button class="favorites-icon" onclick="scrollToFavorites()">
+                <i class="fas fa-heart heart-icon"></i>
+                <span id="favCount" class="fav-count">0</span>
+            </button>
+            
+            <button class="about-btn" onclick="showAboutModal()">
+                <i class="fas fa-info-circle"></i>
+                <span>About</span>
+            </button>
+        </div>
+    </nav>
+
+    <section class="movies-section" id="movies">
+        <div class="container">
+            <h2 class="section-title" id="sectionTitle">
+               Popular Movies
+               <i class="fas fa-fire title-icon"></i>
+             </h2>
+            
+            <div id="loading" class="loading">
+                <div class="spinner"></div>
+                <p class="loading-text">Loading amazing movies...</p>
+            </div>
+            
+            <div id="moviesGrid" class="movies-grid"></div>
+
+            <div id="pagination" class="pagination">
+                <button id="prevBtn" class="page-btn">
+                    <i class="fas fa-chevron-left"></i>
+                    <span>Previous</span>
+                </button>
+                <span id="pageInfo" class="page-info">Page 1 of 500</span>
+                <button id="nextBtn" class="page-btn">
+                    <span>Next</span>
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section class="favorites-section" id="favorites">
+        <div class="container">
+            <h2 class="section-title">
+                  My Favorites
+                  <i class="fas fa-heart title-icon"></i>
+            </h2>
+            
+            <div id="favoritesGrid" class="movies-grid">
+                <div style="grid-column: 1/-1; text-align: center; padding: 3rem;">
+                    <p style="font-size: 1.5rem; margin-bottom: 1rem;">💔 No favorites yet</p>
+                    <p style="font-size: 1.1rem; opacity: 0.8;">Start adding movies to your favorites!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="movieModal" class="modal">
+        <div class="modal-overlay" onclick="closeModal()"></div>
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">
+                <i class="fas fa-times"></i>
+            </button>
+            <div id="modalBody" class="modal-body">
+            </div>
+        </div>
+    </div>
+
+    <div id="aboutModal" class="modal about-modal">
+        <div class="modal-overlay" onclick="closeAboutModal()"></div>
+        <div class="about-modal-content">
+            <button class="modal-close" onclick="closeAboutModal()">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="about-body">
+                <div class="about-icon">🍿</div>
+                <h2 class="about-title">Welcome to PopcornFlix</h2>
+                <p class="about-description">
+                    Your ultimate destination for discovering amazing movies from around the world! 
+                </p>
+                <div class="about-features">
+                    <div class="feature-item">
+                        <i class="fas fa-film feature-icon"></i>
+                        <h3>Thousands of Movies</h3>
+                        <p>Browse through our extensive collection</p>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-search feature-icon"></i>
+                        <h3>Smart Search</h3>
+                        <p>Find your favorite movies instantly</p>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-heart feature-icon"></i>
+                        <h3>Personal Favorites</h3>
+                        <p>Save and track your favorite films</p>
+                    </div>
+                </div>
+                <p class="about-footer">
+                    <i class="fas fa-popcorn"></i>
+                    Happy watching! Grab your popcorn and enjoy!
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer-section">
+        <div class="container">
+            <h2 class="footer-title">
+               Get in Touch
+               <i class="fas fa-envelope-open-text footer-emoji"></i>
+            </h2>
+            
+            <p class="footer-description">
+                Want to collaborate or just say hi? Feel free to reach out!
+            </p>
+            
+            <a href="https://mail.google.com/mail/?view=cm&to=contact@popcornflix.com" target="_blank" class="contact-link">
+                <i class="fas fa-envelope contact-icon"></i>
+                contact@popcornflix.com
+            </a>
+            
+            <div class="footer-credits">
+                <p class="credit-text">
+                    Built with <span class="heart">❤️</span> using TMDB API
+                </p>
+                <p class="copyright">
+                    © 2025 PopcornFlix. All rights reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
